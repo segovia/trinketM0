@@ -5,8 +5,6 @@ import board
 from digitalio import DigitalInOut, Direction, Pull
 from analogio import AnalogOut, AnalogIn
 import touchio
-from adafruit_hid.keyboard import Keyboard
-from adafruit_hid.keycode import Keycode
 import adafruit_dotstar as dotstar
 import time
 import neopixel
@@ -33,11 +31,8 @@ button.pull = Pull.UP
 touch = touchio.TouchIn(board.D3)
 
 # NeoPixel strip (of 16 LEDs) connected on D4
-NUMPIXELS = 16
+NUMPIXELS = 6
 neopixels = neopixel.NeoPixel(board.D4, NUMPIXELS, brightness=0.2, auto_write=False)
-
-# Used if we do HID output, see below
-kbd = Keyboard()
 
 ######################### HELPERS ##############################
 
@@ -86,9 +81,7 @@ while True:
 
   if not button.value:
       print("Button on D2 pressed!")
-      # optional! uncomment below & save to have it sent a keypress
-      #kbd.press(Keycode.A)
-      #kbd.release_all()
 
   i = (i+1) % 256  # run from 0 to 255
   #time.sleep(0.01) # make bigger to slow down
+
